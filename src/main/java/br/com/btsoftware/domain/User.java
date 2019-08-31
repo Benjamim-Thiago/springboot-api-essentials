@@ -1,24 +1,26 @@
 package br.com.btsoftware.domain;
 
 import br.com.btsoftware.domain.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter
 @Entity(name="users")
-
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public User(Long id, String name, String email, String password, Role role, List<Request> requests, List<RequestStage> stages) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.requests = requests;
+        this.stages = stages;
+    }
 
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +45,59 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "owner")
     private List<RequestStage> stages = new ArrayList<RequestStage>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
+    public List<RequestStage> getStages() {
+        return stages;
+    }
+
+    public void setStages(List<RequestStage> stages) {
+        this.stages = stages;
+    }
 }
