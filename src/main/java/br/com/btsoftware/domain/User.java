@@ -12,16 +12,6 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public User(Long id, String name, String email, String password, Role role, List<Request> requests, List<RequestStage> stages) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.requests = requests;
-        this.stages = stages;
-    }
-
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,6 +35,19 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "owner")
     private List<RequestStage> stages = new ArrayList<RequestStage>();
 
+    public User() {
+    }
+
+    public User(Long id, String name, String email, String password, Role role, List<Request> requests, List<RequestStage> stages) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.requests = requests;
+        this.stages = stages;
+    }
+    
     public Long getId() {
         return id;
     }

@@ -31,7 +31,7 @@ public class UserRepositoryTests {
 
     @Test
     public void updateTeste() {
-            User user = new User(1L, "Benjamim Thiago", "benjamim@test.com", "teste123", Role.ADMINISTRATOR, null, null);
+            User user = new User(1L, "Benjamim Thiago", "benjamim@test.com", "123", Role.ADMINISTRATOR, null, null);
             User updatedUser = userRepository.save(user);
 
         assertThat(updatedUser.getName()).isEqualTo("Benjamim Thiago");
@@ -54,7 +54,7 @@ public class UserRepositoryTests {
 
     @Test
     public void loginTest() {
-        Optional<User> result = userRepository.login("ben@gmail.com", "123");
+        Optional<User> result = userRepository.login("benjamim@test.com", "123");
         User loggedUser = result.get();
 
         assertThat(loggedUser.getId()).isEqualTo(1L);
