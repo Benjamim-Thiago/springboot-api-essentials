@@ -27,7 +27,6 @@ public class RequestRepositoryTests {
     private RequestRepository requestRepository;
 
     @Test
-    @Ignore
     public void AsaveTest() {
         User owner = new User();
         owner.setId(1L);
@@ -40,7 +39,6 @@ public class RequestRepositoryTests {
     }
 
     @Test
-    @Ignore
     public void updateTest() {
         User owner = new User();
         owner.setId(1L);
@@ -53,7 +51,6 @@ public class RequestRepositoryTests {
     }
 
     @Test
-    @Ignore
     public void getByIdTest() {
         Optional<Request> result = requestRepository.findById(1L);
         Request request = result.get();
@@ -62,14 +59,12 @@ public class RequestRepositoryTests {
     }
 
     @Test
-    @Ignore
     public void listTest() {
         List<Request> requests = requestRepository.findAll();
         assertThat(requests.size()).isEqualTo(1);
     }
 
     @Test
-    @Ignore
     public void listByOwnerIdTest() {
         List<Request> requests = requestRepository.findAllByOwnerId(1L);
         assertThat(requests.size()).isEqualTo(1);

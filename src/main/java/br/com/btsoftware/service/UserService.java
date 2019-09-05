@@ -15,6 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User save(User user) {
+        user.setId(null);
         user.setPassword(HashUtil.getSecureHash(user.getPassword()));
         User createdUser = userRepository.save(user);
         return createdUser;
