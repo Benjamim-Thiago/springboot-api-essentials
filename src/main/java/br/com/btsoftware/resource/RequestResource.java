@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "requests")
 public class RequestResource {
@@ -31,4 +33,7 @@ public class RequestResource {
         Request request = requestService.getById(id);
         return ResponseEntity.ok(request);
     }
+
+    @GetMapping("/{id}/request-stages")
+    public ResponseEntity<List<Request>>
 }
