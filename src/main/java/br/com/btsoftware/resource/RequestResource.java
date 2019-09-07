@@ -1,7 +1,9 @@
 package br.com.btsoftware.resource;
 
 import br.com.btsoftware.domain.Request;
+import br.com.btsoftware.domain.RequestStage;
 import br.com.btsoftware.service.RequestService;
+import br.com.btsoftware.service.util.RequestStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import java.util.List;
 public class RequestResource {
     @Autowired
     private RequestService requestService;
+
+    @Autowired
+    private RequestStageService requestStageService;
 
     @PostMapping
     public ResponseEntity<Request> save(@RequestBody Request request) {
@@ -34,6 +39,10 @@ public class RequestResource {
         return ResponseEntity.ok(request);
     }
 
-    @GetMapping("/{id}/request-stages")
-    public ResponseEntity<List<Request>>
+   @GetMapping("/{id}/request-stages")
+   public ResponseEntity<List<RequestStage>> listAllStagesById(@PathVariable(name = "id") Long id) {
+        List<RequestStage> requests = requestStageService.listAllByRequestId(id);
+
+        return  ResponseEntity.ok(requests);
+   }
 }
