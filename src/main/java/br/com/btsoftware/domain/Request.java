@@ -4,6 +4,9 @@ package br.com.btsoftware.domain;
 import br.com.btsoftware.domain.enums.RequestState;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +40,7 @@ public class Request implements Serializable {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "request")
     private List<RequestStage> stages =  new ArrayList<RequestStage>();
 

@@ -3,6 +3,10 @@ package br.com.btsoftware.domain;
 import br.com.btsoftware.domain.enums.Role;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +33,11 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Request> requests = new ArrayList<Request>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<RequestStage> stages = new ArrayList<RequestStage>();
 
@@ -52,6 +58,7 @@ public class User implements Serializable {
         return id;
     }
 
+   
     public void setId(Long id) {
         this.id = id;
     }
@@ -72,10 +79,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
-
+    
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

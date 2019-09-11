@@ -39,6 +39,7 @@ public class UserResource {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping
     public ResponseEntity<List<User>> listAll() {
         List<User> users = userService.listAll();
         return ResponseEntity.ok(users);

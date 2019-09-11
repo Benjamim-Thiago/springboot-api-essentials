@@ -1,7 +1,8 @@
 package br.com.btsoftware.resource;
 
 import br.com.btsoftware.domain.RequestStage;
-import br.com.btsoftware.service.util.RequestStageService;
+import br.com.btsoftware.service.RequestStageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

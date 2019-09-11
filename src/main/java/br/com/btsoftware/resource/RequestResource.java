@@ -3,7 +3,8 @@ package br.com.btsoftware.resource;
 import br.com.btsoftware.domain.Request;
 import br.com.btsoftware.domain.RequestStage;
 import br.com.btsoftware.service.RequestService;
-import br.com.btsoftware.service.util.RequestStageService;
+import br.com.btsoftware.service.RequestStageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,13 @@ public class RequestResource {
         return ResponseEntity.ok(request);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Request>> listAll() {
+         List<Request> requests = requestService.listAll();
+
+         return  ResponseEntity.ok(requests);
+    }
+    
    @GetMapping("/{id}/request-stages")
    public ResponseEntity<List<RequestStage>> listAllStagesById(@PathVariable(name = "id") Long id) {
         List<RequestStage> requests = requestStageService.listAllByRequestId(id);
