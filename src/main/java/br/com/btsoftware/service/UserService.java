@@ -1,6 +1,7 @@
 package br.com.btsoftware.service;
 
 import br.com.btsoftware.domain.User;
+import br.com.btsoftware.exception.NotFoundException;
 import br.com.btsoftware.repository.UserRepository;
 import br.com.btsoftware.service.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserService {
 
     public User getById(Long id) {
         Optional<User> result =  userRepository.findById(id);
-        return result.get();
+        return result.orElseThrow(()->new NotFoundException("Não existe usuario com esse id=" + id));
     }
 
     public List<User> listAll() {
