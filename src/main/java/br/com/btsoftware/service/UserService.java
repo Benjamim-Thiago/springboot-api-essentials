@@ -2,9 +2,14 @@ package br.com.btsoftware.service;
 
 import br.com.btsoftware.domain.User;
 import br.com.btsoftware.exception.NotFoundException;
+import br.com.btsoftware.model.PageModel;
+import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.repository.UserRepository;
 import br.com.btsoftware.service.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +43,14 @@ public class UserService {
 
         return users;
     }
+    
+    public PageModel<User> listAllOnLazyMode(PageRequestModel pr) {
+		Pageable pageable = PageRequest.of(pr.getPage(), pr.getSize());
+		Page<User> page = userRepository.findAll(pageable);
+		
+		PageModel<User> pm = new PageModel<>((int)page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+		return pm;
+	}
 
     public User login(String email, String password){
         password = HashUtil.getSecureHash(password);

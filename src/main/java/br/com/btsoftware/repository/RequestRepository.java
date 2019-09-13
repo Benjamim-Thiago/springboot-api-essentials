@@ -2,6 +2,9 @@ package br.com.btsoftware.repository;
 
 import br.com.btsoftware.domain.Request;
 import br.com.btsoftware.domain.enums.RequestState;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +15,8 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
     public List<Request> findAllByOwnerId(Long id);
+    
+    public Page<Request> findAllByOwnerId(Long id, Pageable pageable);
 
     @Transactional(readOnly = false)
     @Modifying

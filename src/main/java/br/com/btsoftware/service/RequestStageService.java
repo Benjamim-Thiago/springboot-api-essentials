@@ -2,9 +2,15 @@ package br.com.btsoftware.service;
 
 import br.com.btsoftware.domain.RequestStage;
 import br.com.btsoftware.domain.enums.RequestState;
+import br.com.btsoftware.exception.NotFoundException;
+import br.com.btsoftware.model.PageModel;
+import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.repository.RequestRepository;
 import br.com.btsoftware.repository.RequestStageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -36,12 +42,20 @@ public class RequestStageService {
     public RequestStage getById(Long id) {
         Optional<RequestStage> result = requestStageRepository.findById(id);
 
-        return result.get();
+        return result.orElseThrow(()->new NotFoundException("Não existe estagios de venda com esse id=" + id));
     }
 
     public List<RequestStage> listAllByRequestId(Long requestId) {
         List<RequestStage> stages = requestStageRepository.findAllByRequestId(requestId);
 
         return stages;
+    }
+    
+    public PageModel<RequestStage> listAllByRequestIdOnLazyMode(Long requestId, PageRequestModel pr) {
+    	Pageable pageable = PageRequest.of(pr.getPage(), pr.getSize());
+    	Page<RequestStage> page = requestStageRepository.findAllByRequestId(requestId, pageable);
+    	
+    	PageModel<RequestStage> pm = new PageModel<>((int)page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+        return pm;
     }
 }
