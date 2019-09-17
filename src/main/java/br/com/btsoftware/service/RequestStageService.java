@@ -42,7 +42,7 @@ public class RequestStageService {
     public RequestStage getById(Long id) {
         Optional<RequestStage> result = requestStageRepository.findById(id);
 
-        return result.orElseThrow(()->new NotFoundException("Não existe estagios de venda com esse id=" + id));
+        return result.orElseThrow(()->new NotFoundException("There are not request stages with id = " + id));
     }
 
     public List<RequestStage> listAllByRequestId(Long requestId) {

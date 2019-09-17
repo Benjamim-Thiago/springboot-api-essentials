@@ -35,7 +35,7 @@ public class UserService {
 
     public User getById(Long id) {
         Optional<User> result =  userRepository.findById(id);
-        return result.orElseThrow(()->new NotFoundException("Não existe usuario com esse id=" + id));
+        return result.orElseThrow(()->new NotFoundException("There are not user with id = " + id));
     }
 
     public List<User> listAll() {
@@ -56,5 +56,9 @@ public class UserService {
         password = HashUtil.getSecureHash(password);
         Optional<User> result =  userRepository.login(email, password);
         return result.get();
+    }
+    
+    public int updateRole(User user) {
+    	return userRepository.updateRole(user.getId(), user.getRole());
     }
 }

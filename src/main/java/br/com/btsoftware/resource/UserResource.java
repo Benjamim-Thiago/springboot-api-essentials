@@ -3,6 +3,7 @@ package br.com.btsoftware.resource;
 import br.com.btsoftware.domain.Request;
 import br.com.btsoftware.domain.User;
 import br.com.btsoftware.dto.UserLoginDTO;
+import br.com.btsoftware.dto.UserUpdateRoleDTO;
 import br.com.btsoftware.model.PageModel;
 import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.service.RequestService;
@@ -64,6 +65,17 @@ public class UserResource {
 		PageModel<Request> pm = requestService.listAllByOwnerIdOnLazyMode(id, pr);
 
 		return ResponseEntity.ok(pm);
+	}
+	
+	@PatchMapping("/role/{id}")
+	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody UserUpdateRoleDTO userDTO){
+		User user =  new User();
+		user.setId(id);
+		user.setRole(userDTO.getRole());
+		
+		userService.updateRole(user);
+		
+		return ResponseEntity.ok().build();
 	}
 
 }
