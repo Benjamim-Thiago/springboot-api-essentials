@@ -8,6 +8,9 @@ import br.com.btsoftware.model.PageModel;
 import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.service.RequestService;
 import br.com.btsoftware.service.UserService;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +53,7 @@ public class UserResource {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@RequestBody UserLoginDTO user) {
+	public ResponseEntity<User> login(@RequestBody @Valid UserLoginDTO user) {
 		User loggedUser = userService.login(user.getEmail(), user.getPassword());
 		return ResponseEntity.ok(loggedUser);
 	}
@@ -68,7 +71,7 @@ public class UserResource {
 	}
 	
 	@PatchMapping("/role/{id}")
-	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody UserUpdateRoleDTO userDTO){
+	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdateRoleDTO userDTO){
 		User user =  new User();
 		user.setId(id);
 		user.setRole(userDTO.getRole());
