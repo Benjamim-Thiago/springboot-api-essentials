@@ -2,10 +2,14 @@ package br.com.btsoftware.resource;
 
 import br.com.btsoftware.domain.Request;
 import br.com.btsoftware.domain.RequestStage;
+import br.com.btsoftware.dto.RequestSavedDTO;
+import br.com.btsoftware.dto.RequestUpdatedDTO;
 import br.com.btsoftware.model.PageModel;
 import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.service.RequestService;
 import br.com.btsoftware.service.RequestStageService;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +26,18 @@ public class RequestResource {
 	private RequestStageService requestStageService;
 
 	@PostMapping
-	public ResponseEntity<Request> save(@RequestBody Request request) {
-		Request createdRequest = requestService.save(request);
+	public ResponseEntity<Request> save(@RequestBody @Valid RequestSavedDTO requestDTO) {
+		Request requestToSave = requestDTO.transformToRequest();
+		Request createdRequest = requestService.save(requestToSave);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Request> update(@PathVariable(name = "id") Long id, @RequestBody Request request) {
-		request.setId(id);
-		Request updatedRequest = requestService.update(request);
+	public ResponseEntity<Request> update(@PathVariable(name = "id") Long id, @RequestBody @Valid RequestUpdatedDTO requestDTO) {
+		Request requestToUpdate = requestDTO.transformToRequest();
+		requestToUpdate.setId(id);
+		
+		Request updatedRequest = requestService.update(requestToUpdate);
 		return ResponseEntity.ok(updatedRequest);
 	}
 
