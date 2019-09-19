@@ -24,6 +24,20 @@ public class RequestSavedDTO {
 	private User owner;
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 
+	public RequestSavedDTO() {
+		super();
+	}
+
+	public RequestSavedDTO(String subject, String description, RequestState state, User owner,
+			List<RequestStage> stages) {
+		super();
+		this.subject = subject;
+		this.description = description;
+		this.state = state;
+		this.owner = owner;
+		this.stages = stages;
+	}
+
 	public String getSubject() {
 		return subject;
 	}
@@ -69,4 +83,5 @@ public class RequestSavedDTO {
 		Request request = new Request(null, this.subject, this.description, null, this.state, this.owner, this.stages);
 		return request;
 	}
+
 }

@@ -12,19 +12,33 @@ import br.com.btsoftware.domain.RequestStage;
 import br.com.btsoftware.domain.User;
 
 public class UserUpdatedDTO {
-	
+
 	@NotBlank
 	private String name;
-	
+
 	@Email
 	private String email;
-	
+
 	@Size(min = 7, max = 99, message = "Password must be between 7 and 99")
 	private String password;
-	
+
 	private List<Request> requests = new ArrayList<Request>();
 
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
+
+	public UserUpdatedDTO() {
+		super();
+	}
+
+	public UserUpdatedDTO(String name, String email, String password, List<Request> requests,
+			List<RequestStage> stages) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.requests = requests;
+		this.stages = stages;
+	}
 
 	public String getName() {
 		return name;
@@ -65,8 +79,9 @@ public class UserUpdatedDTO {
 	public void setStages(List<RequestStage> stages) {
 		this.stages = stages;
 	}
+
 	public User transformToUser() {
 		User user = new User(null, this.name, this.email, this.password, null, this.requests, this.stages);
-	    return user;
+		return user;
 	}
 }

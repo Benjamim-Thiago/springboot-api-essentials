@@ -14,22 +14,37 @@ import br.com.btsoftware.domain.User;
 import br.com.btsoftware.domain.enums.Role;
 
 public class UserSavedDTO {
-	
+
 	@NotBlank(message = "Nome não pode estar em branco")
 	private String name;
-	
+
 	@Email(message = "E-mail deve ser válido")
 	private String email;
-	
+
 	@Size(min = 7, max = 99, message = "Senha deve ter 7 a 99 caracteres")
 	private String password;
-	
+
 	@NotNull(message = "Role deve ser informado")
 	private Role role;
 
 	private List<Request> requests = new ArrayList<Request>();
 
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
+
+	public UserSavedDTO() {
+		super();
+	}
+
+	public UserSavedDTO(String name, String email, String password, Role role, List<Request> requests,
+			List<RequestStage> stages) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.requests = requests;
+		this.stages = stages;
+	}
 
 	public String getName() {
 		return name;
@@ -78,9 +93,9 @@ public class UserSavedDTO {
 	public void setStages(List<RequestStage> stages) {
 		this.stages = stages;
 	}
-	
+
 	public User transformToUser() {
 		User user = new User(null, this.name, this.email, this.password, this.role, this.requests, this.stages);
-	    return user;
+		return user;
 	}
 }
