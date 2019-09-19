@@ -1,12 +1,12 @@
 package br.com.btsoftware.dto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import br.com.btsoftware.domain.enums.Role;
 
 public class UserUpdateRoleDTO {
 	
-	@NotBlank(message = "Role required")
+	@NotNull(message = "Role required.")
 	private Role role;
 
 	public Role getRole() {

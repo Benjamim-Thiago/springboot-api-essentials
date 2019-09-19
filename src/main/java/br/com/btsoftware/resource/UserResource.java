@@ -3,7 +3,9 @@ package br.com.btsoftware.resource;
 import br.com.btsoftware.domain.Request;
 import br.com.btsoftware.domain.User;
 import br.com.btsoftware.dto.UserLoginDTO;
+import br.com.btsoftware.dto.UserSavedDTO;
 import br.com.btsoftware.dto.UserUpdateRoleDTO;
+import br.com.btsoftware.dto.UserUpdatedDTO;
 import br.com.btsoftware.model.PageModel;
 import br.com.btsoftware.model.PageRequestModel;
 import br.com.btsoftware.service.RequestService;
@@ -25,15 +27,18 @@ public class UserResource {
 	private RequestService requestService;
 
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody User user) {
-		User createdUser = userService.save(user);
+	public ResponseEntity<User> save(@RequestBody @Valid UserSavedDTO userDTO) {
+		User userToSave = userDTO.transformToUser();
+		User createdUser = userService.save(userToSave);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody User user) {
-		user.setId(id);
-		User updateUser = userService.update(user);
+	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdatedDTO userDTO) {
+		User userToUpdate = userDTO.transformToUser();
+		userToUpdate.setId(id);
+		
+		User updateUser = userService.update(userToUpdate);
 		return ResponseEntity.ok(updateUser);
 	}
 

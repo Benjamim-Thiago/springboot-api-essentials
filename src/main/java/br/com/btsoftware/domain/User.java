@@ -29,7 +29,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
